@@ -1,0 +1,9 @@
+-
+  class: JenkinsJobMonitor
+  url: http://lynx:8080/job/Backup%20to%20local
+-
+  class: JenkinsJobMonitor
+  url: http://lynx:8080/job/Hustomten
+-
+  class: JenkinsJobMonitor
+  url: http://lynx:8080/job/notsuchjob
