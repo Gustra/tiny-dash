@@ -67,7 +67,6 @@ Please read the
 [documentation](https://github.com/Gustra/tiny-dash/wiki/User-guide) for
 more information.
 
-## References
 
 [tki]: https://wiki.python.org/moin/TkInter
 [twi]: https://twistedmatrix.com/trac/
