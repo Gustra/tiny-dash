@@ -11,7 +11,6 @@ configuration syntax.
 * [User Guide](User-guide.md)
 * [Project on Git Hub](https://github.com/Gustra/tiny-dash)
 
-## References
 
 [pyt]: https://www.python.org/
 [tki]: https://wiki.python.org/moin/TkInter

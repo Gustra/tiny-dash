@@ -23,7 +23,7 @@ branch=docs-installation
 # Globals
 name=$(basename $git_url .git)
 src=$(readlink -f $(dirname ${BASH_SOURCE[0]})/../docs)
-dest="$name/$subdir"
+dest="$subdir"
 
 if [[ ! -e $name ]]; then
     git clone "$git_url" "$name"

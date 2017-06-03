@@ -283,8 +283,6 @@ dashboard. Just create a meter with zero value:
 ```
 
 
-## References
-
 [pyt]: https://www.python.org/
 [tki]: https://wiki.python.org/moin/TkInter
 [twi]: https://twistedmatrix.com/trac/
