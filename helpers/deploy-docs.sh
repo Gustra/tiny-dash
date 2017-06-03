@@ -53,7 +53,11 @@ else
     hash=$(cd $src; git rev-parse --short HEAD)
     git commit -m "Updated to tiny-dash $hash"
     if [[ ${1-} && ${1} = --push ]]; then
-        git push origin HEAD:$dbranch
+        if [[ ${DRY_RUN-} ]]; then
+            echo git push origin HEAD:$dbranch
+        else
+            git push origin HEAD:$dbranch
+        fi
     fi
 fi
 
