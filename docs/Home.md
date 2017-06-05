@@ -8,7 +8,7 @@ configuration syntax.
 
 ## Documentation
 
-* [User Guide](User-guide.md)
+* [User Guide](User-guide)
 * [Project on Git Hub](https://github.com/Gustra/tiny-dash)
 
 
