@@ -165,7 +165,7 @@ class StateSensor(SensorBase):
         self.update(-1)
 
     def got_output(self, output):
-        result = output.split("\n")[0] if output else ''
+        result = output.split("\n")[0].strip() if output else ''
         logging.debug("Got %s --> %s", output, result)
         self.update(result)
 
@@ -555,7 +555,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Simple dashboard application')
     parser.add_argument('configfiles',
                         nargs='*',
-                        default=os.path.join(os.path.expanduser('~'), '.tiny-dash', 'config'),
+                        default=[os.path.join(os.path.expanduser('~'), '.tiny-dash', 'config')],
                         help='Dashboard configuration files to read.')
     parser.add_argument('--config-dir',
                         default=os.path.join(os.path.expanduser('~'), '.tiny-dash'),

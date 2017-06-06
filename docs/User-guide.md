@@ -2,6 +2,16 @@
 
 ## Introduction
 
+Tiny dash is a simple desktop dashboard application, which connects
+"indicators" to "sensors". A sensor executes a command and sets the
+dashboard indicator based on the exit status or output of the command.
+Three types of sensors are currently supported: status, state, and
+fraction, and two types of indicators: lamp and meter.
+
+The purpose of tiny-dash is to be able to present a lot of indicators in
+a tiny area on the desktop, quite the opposite of most web-based
+dashboards which aim for the huge radiator screens.
+
 Dashboard configurations are written in [YAML][yml], and are given as
 arguments to the program, or stored in the user's home directory as
 `.tiny-dash/config`. All configurations contains a list of dicts. Sample
@@ -27,6 +37,31 @@ A very important setting is `update-interval` which determines the
 polling interval in seconds for the sensors, e.g. "8.4". A sensor will
 wait for a return value before waiting again, so there is no risk for
 calling the same sensor in parallel.
+
+## Installation
+
+Tiny dash is written in Python and uses [twisted][twi] for
+asynchronous command execution and [Tkinter][tki] for presentation.
+
+* Install [Python2](pyt) on your system (Python 3 untested)
+* Install
+[Tkinter](https://tkinter.unpythonic.net/wiki/How_to_install_Tkinter)
+* On Windows: install [pywin32](https://pypi.python.org/pypi/pywin32)
+* Install [twisted][twi]. Paste the following commands into a terminal
+  window:
+    * Linux: `sudo pip install twisted`
+    * Windows: `pip install twisted`
+* Download
+  [`tiny-dash.py`](https://raw.githubusercontent.com/Gustra/tiny-dash/0.1.0-p1/bin/tiny-dash.py)
+  and store it somewhere.
+* On Linux: make it executable: `chmod +x tiny-dash.py`
+
+To run, just do:
+
+* Linux: `./tiny-dash.py` _config-file_
+* Windows: `python.exe tiny-dash.py` _config-file_
+
+To exit the program, close the window or type Ctrl-Q.
 
 ## Sensors
 

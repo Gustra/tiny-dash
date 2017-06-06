@@ -14,26 +14,34 @@ It is in early stage of development, but it is already usable, please
 visit the [wiki](https://github.com/Gustra/tiny-dash/wiki) to read the
 [documentation](https://github.com/Gustra/tiny-dash/wiki/User-guide).
 
-_Note_: it has only been tested on Linux at the moment.
+It has been verified to run on Linux and Windows 8, but it should work
+on any platform supported by Tkinter and twisted, since it has no
+special dependencies.
 
 ## Installation
 
 Tiny dash is written in Python and uses [twisted][twi] for
 asynchronous command execution and [Tkinter][tki] for presentation.
 
-See the
-[Tkinter wiki](https://tkinter.unpythonic.net/wiki/How_to_install_Tkinter)
-for information on how to install Tkinter on your system.
+* Install [Python2](pyt) on your system (Python 3 untested)
+* Install
+[Tkinter](https://tkinter.unpythonic.net/wiki/How_to_install_Tkinter)
+* On Windows: install [pywin32](https://pypi.python.org/pypi/pywin32)
+* Install [twisted][twi]. Paste the following commands into a terminal
+  window:
+    * Linux: `sudo pip install twisted`
+    * Windows: `pip install twisted`
+* Download
+  [`tiny-dash.py`](https://raw.githubusercontent.com/Gustra/tiny-dash/0.1.0-p1/bin/tiny-dash.py)
+  and store it somewhere.
+* On Linux: make it executable: `chmod +x tiny-dash.py`
 
-Install twisted. Paste the following commands into a terminal window:
+To run, just do:
 
-```
-sudo pip install twisted
-# Clone the tiny-dash repository:
-git clone https://github.com/Gustra/tiny-dash.git
-# To run, just do:
-./tiny-dash/bin/tiny-dash.py <config file>
-```
+* Linux: `./tiny-dash.py` _config-file_
+* Windows: `python.exe tiny-dash.py` _config-file_
+
+To exit the program, close the window or type Ctrl-Q.
 
 ## Brief introduction
 
@@ -64,10 +72,10 @@ return value before waiting again, so there is no risk for calling the
 same sensor in parallel.
 
 Please read the
-[documentation](https://github.com/Gustra/tiny-dash/wiki/User-guide) for
+[User Guide](https://github.com/Gustra/tiny-dash/wiki/User-guide) for
 more information.
 
-
+[pyt]: https://www.python.org/
 [tki]: https://wiki.python.org/moin/TkInter
 [twi]: https://twistedmatrix.com/trac/
 [yml]: http://yaml.org/
