@@ -41,6 +41,11 @@ class ColorShade(object):
         logging.debug('color diff: {},{},{}'.format(self.r_diff, self.g_diff, self.b_diff))
 
     def shade(self, fraction):
+        """
+        Shade this color based on the given fraction
+        :param fraction:
+        :return: a color string "#rrggbb", e.g. "#ab34c4"
+        """
         return '#{:04x}{:04x}{:04x}'.format(int(self.min_rgb[0] + (self.r_diff * fraction)),
                                             int(self.min_rgb[1] + (self.g_diff * fraction)),
                                             int(self.min_rgb[2] + (self.b_diff * fraction)))
@@ -197,7 +202,7 @@ class FractionSensor(SensorBase):
             return
         use_shell = not (isinstance(self.program, (list, tuple)))
         logging.debug('Calling %s', self.program if use_shell else ' '.join(self.program))
-        d = utils.getProcessOutput(self.program[0], self.program[1:] if len(self.program) > 1 else [])
+        d = utils.getProcessOutput(self.program[0], self.program[1:] if len(self.program) > 1 else [], env=os.environ)
         d.addCallbacks(self.got_output, self.no_output)
 
     def no_output(self, err):
@@ -474,7 +479,8 @@ class TinyDashApp:
                         indicator.widget.bind('<Leave>', lambda event: self.status_text.set(''))
 
                 else:
-                    logging.warning('Sensor %s not connected to an indicator.')
+                    logging.warning('Sensor %s not connected to an indicator.',
+                                    item['name'] if 'name' in item else item['sensor'])
                     indicator = Broken(self.dash_frame, queue, item)
                     self.emitters.append(indicator)
                     status_text = ''
@@ -559,7 +565,7 @@ def parse_args():
                         help='Dashboard configuration files to read.')
     parser.add_argument('--config-dir',
                         default=os.path.join(os.path.expanduser('~'), '.tiny-dash'),
-                        help='Dashboard configuration files to read.')
+                        help='Location of tiny-dash configuration files. Default is ~/.tiny-dash')
     parser.add_argument('--geometry',
                         help='Size and position of the window')
     parser.add_argument('--debug',

@@ -63,6 +63,9 @@ To run, just do:
 
 To exit the program, close the window or type Ctrl-Q.
 
+Please see [Commond-line-options](Command-line-options) for a
+description of the command line options.
+
 ## Sensors
 
 ### Status sensor

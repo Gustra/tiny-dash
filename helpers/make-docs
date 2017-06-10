@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+root=$(readlink -f $(dirname ${BASH_SOURCE[0]})/..)
+
+#
+# Generate the command-line options documentation
+#
+
+clof=${root}/docs/Command-line-options.md
+cat <<EOT > $clof
+# tiny-dash.py command-line options
+
+\`\`\`
+EOT
+"$root/bin/tiny-dash.py" --help >> $clof
+echo '```' >> $clof
+
+#
+# Generate screenshots
+#
+
+${root}/helpers/take-screenshots.sh

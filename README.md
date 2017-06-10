@@ -75,6 +75,12 @@ Please read the
 [User Guide](https://github.com/Gustra/tiny-dash/wiki/User-guide) for
 more information.
 
+## Demo configurations
+
+* Linux: [examples/linux](examples/linux)
+* Windows: [examples/windows](examples/windows)
+
+
 [pyt]: https://www.python.org/
 [tki]: https://wiki.python.org/moin/TkInter
 [twi]: https://twistedmatrix.com/trac/
