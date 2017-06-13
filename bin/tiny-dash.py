@@ -298,9 +298,9 @@ class Lamp(object):
     def draw(self, color):
         self.widget.delete('all')
         if self.shape == 'square':
-            self.widget.create_rectangle(0, 0, self.width, self.height, fill=color)
+            self.widget.create_rectangle(1, 1, self.width-1, self.height-1, fill=color)
         else:
-            self.widget.create_oval(0, 0, self.width, self.height, fill=color)
+            self.widget.create_oval(1, 1, self.width-1, self.height-1, fill=color)
 
 
 class Meter(object):
