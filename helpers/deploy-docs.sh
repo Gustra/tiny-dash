@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Installs the documentation in a git repository. Since the project is (was) located on Github, the default is to
-# install the documentation there. This can be overridden by the environment vvariables:
+# install the documentation there. This can be overridden by the environment variables:
 #
 # TINY_DASH_DOCS_GIT_URL: Git URL to close
 # TINY_DASH_DOCS_SUBDIR: subdirectory in the clone, default is repo root
@@ -14,7 +14,7 @@
 set -euo pipefail
 
 # Configurations
-git_url=${TINY_DASH_DOCS_GIT_URL:-https://github.com/Gustra/tiny-dash.wiki.git}
+git_url=${TINY_DASH_DOCS_GIT_URL:-git@github.com:Gustra/tiny-dash.wiki.git}
 subdir=${TINY_DASH_DOCS_SUBDIR:-.}
 dbranch=${TINY_DASH_DOCS_BRANCH:-master}
 remote_branch=origin/${dbranch}
