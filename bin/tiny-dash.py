@@ -244,6 +244,7 @@ class Lamp(object):
         self.queue = queue
         self.width = config['width'] if 'width' in config else 100
         self.height = config['height'] if 'height' in config else 100
+        self.radius = config['radius'] if 'radius' in config else 1.0
         self.on_color = config['on-color'] if 'on-color' in config else '#80ff80'
         self.off_color = config['off-color'] if 'off-color' in config else '#ff0000'
         self.min_color = config['min-color'] if 'min-color' in config else 'green'
@@ -297,10 +298,11 @@ class Lamp(object):
 
     def draw(self, color):
         self.widget.delete('all')
+        margin = 1 + (self.width - self.width * self.radius) / 2
         if self.shape == 'square':
-            self.widget.create_rectangle(1, 1, self.width-1, self.height-1, fill=color)
+            self.widget.create_rectangle(margin, margin, self.width-margin, self.height-margin, fill=color)
         else:
-            self.widget.create_oval(1, 1, self.width-1, self.height-1, fill=color)
+            self.widget.create_oval(margin, margin, self.width-margin, self.height-margin, fill=color)
 
 
 class Meter(object):

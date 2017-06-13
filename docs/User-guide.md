@@ -231,6 +231,22 @@ It can have one of two `shape`s: `round` (default) or `square`:
 
 [![Lamp shapes](images/lamp-shapes.png)](shots/lamp-shapes-84x80.config)
 
+The size of the lamp "bulb" is controlled with `radius` which can have
+a value between 0.0 and 1.0:
+
+```
+- defaults:
+    type: Lamp
+    sensor: Status
+- radius: 0.8
+  program: ['test', '-e', '/']
+- shape: square
+  radius: 0.5
+  program: ['test', '-f', '/']
+```
+
+[![Lamp shapes](images/lamp-radius.png)](shots/lamp-radius-204x80.config)
+
 ### Meter
 
 Meters show a fraction, e.g. som kind of progress or level, as an arc:
