@@ -300,9 +300,9 @@ class Lamp(object):
         self.widget.delete('all')
         margin = 1 + (self.width - self.width * self.radius) / 2
         if self.shape == 'square':
-            self.widget.create_rectangle(margin, margin, self.width-margin, self.height-margin, fill=color)
+            self.widget.create_rectangle(margin, margin, self.width - margin, self.height - margin, fill=color)
         else:
-            self.widget.create_oval(margin, margin, self.width-margin, self.height-margin, fill=color)
+            self.widget.create_oval(margin, margin, self.width - margin, self.height - margin, fill=color)
 
 
 class Meter(object):
@@ -378,6 +378,27 @@ class Broken(object):
         self.widget.create_line(w, y0, x0, h, fill='red', width=4)
 
 
+class Space(object):
+    """Creates an empty space on the dashboard"""
+    def __init__(self, parent, config):
+        """
+        Constructor. The value of the "space" entry in the "config" dict may contain a string: <int>x<int>, which will
+        then be interpreted as WIDTHxHEIGHT and override any other width/height settings in the config.
+        :param parent: Tkinter widget
+        :param config: configuration dict
+        """
+        if config['space'] and re.match('^\d+x\d+$', str(config['space'])):
+            (w, h) = str(config['space']).split('x')
+            self.width = int(w)
+            self.height = int(h)
+        else:
+            self.width = config['width'] if 'width' in config else 40
+            self.height = config['height'] if 'height' in config else 40
+        self.widget = Frame(parent, height=self.height, width=self.width)
+
+    def update(self):
+        pass
+
 class TinyDashApp:
     """
     Tiny dash application class.
@@ -406,12 +427,12 @@ class TinyDashApp:
         self.emitters = []
 
         # Default settings, also if defaults are reset
-        default_defaults = {'height': 40,
-                            'width': 40,
-                            'update-interval': 5.0, }
+        self.default_defaults = {'height': 40,
+                                 'width': 40,
+                                 'update-interval': 5.0, }
 
         # Current default settings, which can be updated by config files
-        defaults = default_defaults
+        self.defaults = self.default_defaults
 
         for config_file in args.configfiles:
             logging.debug('Reading configuration from %s', config_file)
@@ -421,23 +442,12 @@ class TinyDashApp:
             logging.debug('%s', config)
 
             for raw_item in config:
-                if 'defaults+' in raw_item:
-                    if not raw_item['defaults+']:
-                        defaults = default_defaults
-                        logging.debug('Defaults resetted: %s', defaults)
-                    else:
-                        defaults.update(raw_item['defaults+'])
-                        logging.debug('Defaults updated: %s', defaults)
+                if self._handle_defaults(raw_item):
                     continue
-                if 'defaults' in raw_item:
-                    defaults = default_defaults
-                    if not raw_item['defaults']:
-                        continue
-                    defaults.update(raw_item['defaults'])
-                    logging.debug('Defaults set: %s', defaults)
+                if self._handle_space(raw_item):
                     continue
 
-                item = deepcopy(defaults)
+                item = deepcopy(self.defaults)
                 item.update(raw_item)
 
                 queue = Queue.Queue()
@@ -512,6 +522,32 @@ class TinyDashApp:
 
         # And go with updates
         self.timer = parent.after(100, self.refresh)
+
+    def _handle_defaults(self, item):
+        """Handles "defaults" type of configuration entries."""
+        if 'defaults+' in item:
+            if not item['defaults+']:
+                self.defaults = self.default_defaults
+                logging.debug('Defaults resetted: %s', self.defaults)
+            else:
+                self.defaults.update(item['defaults+'])
+                logging.debug('Defaults updated: %s', self.defaults)
+            return True
+        if 'defaults' in item:
+            self.defaults = self.default_defaults
+            if not item['defaults']:
+                return True
+            self.defaults.update(item['defaults'])
+            logging.debug('Defaults set: %s', self.defaults)
+            return True
+        return False
+
+    def _handle_space(self, item):
+        """Handles "space" type of configuration entries."""
+        if 'space' in item:
+            self.emitters.append(Space(self.dash_frame, item))
+            return True
+        return False
 
     def layout(self, *args):
         logging.debug('Window width: %d', self.parent.winfo_width())

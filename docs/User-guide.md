@@ -308,33 +308,88 @@ The meter can change color based on the fraction:
 
 [![Lamp shapes](images/meter-color.png)](shots/meter-color-84x80.config)
 
+### Broken
+
+If a sensor is not connected to any indicator, then a `Broken` indicator
+will be shown:
+
+[![Broken sensor](images/broken.png)](shots/meter-color-84x80.config)
+
 
 ## Layout
 
-Nope, none, sorry. The dashboard will simply put as many indicators as
-fits on a line from left to right, and then continue on a new line.
-Overflowing indicators will be outside the window, and there is no
-scrollbar...just to be annoying.
+The dashboard will simply put as many indicators as fits on a line from
+left to right, and then continue on a new line. Overflowing indicators
+will be outside the window, and there is currently no scrollbar.
 
-All hope is not lost though. By using clever sizes and dividers, some
-resemblance of order can be created:
+Using clever sizes and spaces, some kind of order can be created:
 
 [![Layout example](images/layout-example.png)](shots/layout-example-168x200.config)
 
-### Divider
+### Space
 
-This is just an empty indicator which creates some space in the
-dashboard. Just create a meter with zero value:
+This "indicator" creates some space in the dashboard. The width and
+height of the space can be set in the value for the `space` key as:
+_width_ x _height_: `45x67`, or using the `width` and `height`attributes
+as usual.
 
 ```
-- type: Meter
-  sensor: Fraction
-  program: ['echo', '0.0']
-  width: 20
-  height: 20
-  # Update the sensor at the start, and never again
-  update-interval: 9999999999999999999.0
+- defaults:
+    sensor: Status
+- type: Lamp
+- space: 80x60
+- type: Lamp
+- type: Lamp
+- type: Lamp
+- space: 40x40
+- type: Lamp
 ```
+
+[![Space example](images/space.png)](shots/space-160x120.config)
+
+If can also be used to create some space between rows by setting the
+height slightly more than the rest of the indicators on the row. Note
+that if the width it zero then the value must be quoted, so that it is
+not interpreted as a hexadecimal value by YAML.
+
+```
+- defaults:
+    sensor: Status
+    program: ['test', '-e', '/']
+    shape: square
+    width: 20
+    height: 20
+- type: Lamp
+- type: Lamp
+- type: Lamp
+- space: "0x24"
+- type: Lamp
+- type: Lamp
+- type: Lamp
+- space: "0x28"
+- type: Lamp
+- type: Lamp
+- type: Lamp
+- space: "0x36"
+- type: Lamp
+- type: Lamp
+- type: Lamp
+- space: "0x36"
+- type: Lamp
+- type: Lamp
+- type: Lamp
+- space: "0x28"
+- type: Lamp
+- type: Lamp
+- type: Lamp
+- space: "0x24"
+- type: Lamp
+- type: Lamp
+- type: Lamp
+```
+
+[![Vertical space](images/space-vertical.png)](shots/space-vertical-60x220.config)
+
 
 
 [pyt]: https://www.python.org/
