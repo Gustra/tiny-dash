@@ -347,10 +347,10 @@ as usual.
 
 [![Space example](images/space.png)](shots/space-160x120.config)
 
-If can also be used to create some space between rows by setting the
+It can also be used to create some space between rows by setting the
 height slightly more than the rest of the indicators on the row. Note
-that if the width it zero then the value must be quoted, so that it is
-not interpreted as a hexadecimal value by YAML.
+that if the width is zero then the value must be quoted to prevent it
+from being interpreted as a hexadecimal value by [YAML][yml].
 
 ```
 - defaults:
